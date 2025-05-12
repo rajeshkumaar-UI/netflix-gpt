@@ -1,9 +1,13 @@
-import { useSelector } from 'react-redux';
 import useMovieTrailer from '../hooks/useMovieTrailer';
+import { useSelector } from 'react-redux';
 
 const VideoBackground = ({movieId}) => {
-    const trailerVideo = useSelector((store) => store.movies?.trailerVideo );
+  
     useMovieTrailer(movieId);
+    const trailerVideo = useSelector((store) => store.movies?.trailerVideo );
+    
+    
+    if (!trailerVideo || !trailerVideo.key) return null;
 
   return (
     <div>
