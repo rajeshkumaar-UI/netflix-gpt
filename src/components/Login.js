@@ -3,6 +3,7 @@ import Header from './Header'
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from '../utils/firebase'
+import { USERIMAGEURL } from '../utils/constants'
 
 import checkValidateData from '../utils/validate';
 import { useDispatch } from 'react-redux';
@@ -32,7 +33,7 @@ const Login = () => {
                 const user = userCredential.user;
                 console.log(user);
                 updateProfile(user, {
-                    displayName: name.current.value, photoURL: "https://avatars.githubusercontent.com/u/187245648?s=400&u=9603e0ec0f673602eb09ee51d8a83c26f96d99bf&v=4"
+                    displayName: name.current.value, photoURL: USERIMAGEURL
                   }).then(() => {
                     // Profile updated!
                     // ...

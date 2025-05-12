@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import {auth} from '../utils/firebase';
-import {signOut} from "firebase/auth"
+import {signOut} from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import {onAuthStateChanged} from "firebase/auth"
-import { useDispatch } from 'react-redux'
-import { addUser, removeUser } from '../utils/userSlice'
+import {onAuthStateChanged} from "firebase/auth";
+import { useDispatch } from 'react-redux';
+import { addUser, removeUser } from '../utils/userSlice';
+import { LOGO } from '../utils/constants'
 
 const Header = () => {
 
@@ -21,7 +22,7 @@ const Header = () => {
   }
 
   useEffect(() => {
-      onAuthStateChanged(auth, (user) => {
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
           if (user) {
             // User is signed in, see docs for a list of available properties
             // https://firebase.google.com/docs/reference/js/auth.user
@@ -36,11 +37,12 @@ const Header = () => {
             navigate('/');
           }
       })
+      return () => unsubscribe();
   }, [navigate, dispatch]);
 
   return (
     <div className='absolute px-8 py-2 z-10 flex justify-between w-screen'>
-        <img className='w-48' src="images/dummy-logo.png" alt="Logo"></img>
+        <img className='w-48' src={LOGO} alt="Logo"></img>
         { user && (
           <div className='flex gap-2 items-center'>
           <img className='w-10 rounded-full' src={user.photoURL} alt="Logo"></img>
